@@ -1,10 +1,11 @@
 import User from '@models/User';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { UserModel } from 'types';
 
 export const ResumePage = () => {
   const { username } = useParams();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<UserModel | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +20,6 @@ export const ResumePage = () => {
 
     fetchData();
   }, [username]);
-  
 
   const userData = {
     firstName: 'John',
@@ -45,9 +45,9 @@ export const ResumePage = () => {
         <h1 className="text-3xl font-bold mb-4 text-center">User Information</h1>
 
         <div className="mb-4">
-          <p className="text-lg">Name: {userData.firstName} {userData.lastName}</p>
-          <p className="text-lg">Public Repositories: {userData.publicRepositories}</p>
-          <p className="text-lg">Member Since: {userData.memberSince}</p>
+          <p className="text-lg">Name: {user?.name}</p>
+          <p className="text-lg">Public Repositories: {user?.publicReposCount}</p>
+          <p className="text-lg">Member Since: {user?.registrationDate.format('DD-MM-YYYY')}</p>
         </div>
 
         <div className="mb-4">

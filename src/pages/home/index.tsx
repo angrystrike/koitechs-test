@@ -1,8 +1,8 @@
 import User from '@models/User';
 import Repository from '@models/Repository';
 import React, { ChangeEvent, useState } from 'react';
-import DefaultButton from '@components/buttons/default';
-import Input from '@components/forms/Input';
+import DefaultButton from '@components/ui/buttons/default';
+import Input from '@components/ui/forms/Input';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
