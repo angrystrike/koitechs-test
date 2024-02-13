@@ -1,31 +1,37 @@
 import User from '@models/User';
 import Repository from '@models/Repository';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import DefaultButton from '@components/buttons/default';
+import Input from '@components/forms/Input';
 
 const HomePage = () => {
-  async function handleInputChange() {
-    console.log('123');
-    const me = await User.findByUsername('angrystrike');
-    console.log('me', me);
+  async function generateResume() {
+    const user = await User.findByUsername(username);
+    console.log('me', user);
     
     Repository.test();
   }
+
+  const [username, setUsername] = useState('');
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold mb-4 text-center">Find GitHub Resume</h1>
         <div className="flex items-center justify-center mb-4">
-          <input
-            type="text"
-            className="px-4 py-2 mr-2 w-64 border rounded-lg outline-none"
-            placeholder="Enter GitHub username"
+          <Input
+            className='px-4 py-2 mr-2'
+            value={username}
+            placeholder='Enter GitHub username'
+            onChange={handleInputChange}
           />
           <DefaultButton 
             text="Submit"
             className='px-6 py-2'
-            onClick={handleInputChange} 
+            onClick={generateResume} 
           />
         </div>
       </div>
