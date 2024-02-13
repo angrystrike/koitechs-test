@@ -14,7 +14,6 @@ class User {
       publicReposCount: userData.public_repos,
       repos: repositoriesData
     }
-    console.log('user', user);
 
     return user;
   }

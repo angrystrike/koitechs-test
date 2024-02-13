@@ -19,9 +19,8 @@ export const ResumePage = () => {
       try {
         const fetchedUser = await User.findByUsername(username);
         setUser(fetchedUser);
-        console.log('User11:', fetchedUser);
       } catch (error) {
-        console.error('Error fetching user1111:', error);
+        console.error('Error fetching user:', error);
       }
     };
 
