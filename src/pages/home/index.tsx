@@ -1,11 +1,14 @@
 import User from '@models/User';
 import Repository from '@models/Repository';
 import React, { ChangeEvent } from 'react';
+import DefaultButton from '@components/buttons/default';
 
 const HomePage = () => {
-  function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
+  async function handleInputChange() {
     console.log('123');
-    User.test();
+    const me = await User.findByUsername('angrystrike');
+    console.log('me', me);
+    
     Repository.test();
   }
 
@@ -18,9 +21,12 @@ const HomePage = () => {
             type="text"
             className="px-4 py-2 mr-2 w-64 border rounded-lg outline-none"
             placeholder="Enter GitHub username"
-            onChange={handleInputChange}
           />
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Generate</button>
+          <DefaultButton 
+            text="Submit"
+            className='px-6 py-2'
+            onClick={handleInputChange} 
+          />
         </div>
       </div>
     </div>
