@@ -12,5 +12,11 @@ export interface RepositoryModel {
   name: string;
   url: string;
   language: string;
-  pushed_at: Moment;
+  pushedAt: Moment;
+}
+
+export interface IListItem {
+  label?: string;
+  value: string;
+  url?: string;
 }
