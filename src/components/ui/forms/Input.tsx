@@ -4,11 +4,12 @@ interface IProps {
   placeholder: string;
   className?: string;
   value: string;
+  isRequired?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = (props: IProps) => {
-  const { className = '', placeholder = '', value, onChange = () => {} } = props;
+  const { className = '', placeholder = '', value, onChange = () => {}, isRequired = true } = props;
 
   return (
     <input
@@ -17,6 +18,7 @@ const Input = (props: IProps) => {
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      {...(isRequired ? { required: true } : {})}
     />
   );
 };

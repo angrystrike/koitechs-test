@@ -6,7 +6,7 @@ class Repository {
   public async getAllByUsername(username: string) {
     const response = await getUserRepositories(username);
 
-    const repositories: Array<RepositoryModel> = response.reduce(
+    const repositories: Array<RepositoryModel> = response?.reduce(
       (acc: Array<RepositoryModel>, item) => {
         const repo: RepositoryModel = {
           id: item.id,
@@ -41,10 +41,10 @@ class Repository {
 
   public prepareForLanguagesList(repos: Array<RepositoryModel>) {
     const languageCounts: { [key: string]: number } = {};
-    const totalRepos = repos.length;
+    const totalRepos = repos?.length || 0;
 
     // Get object with key: language_name and value: count of project with this lang
-    repos.forEach(repo => {
+    repos?.forEach(repo => {
       const lang = repo.language || 'Unknown';
       languageCounts[lang] = (languageCounts[lang] || 0) + 1;
     });
