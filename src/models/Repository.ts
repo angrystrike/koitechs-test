@@ -1,6 +1,6 @@
 import { getUserRepositories } from "@api/github";
 import moment from "moment-timezone";
-import { RepositoryModel } from "types";
+import { IListItem, RepositoryModel } from "types";
 
 class Repository {
   public async getAllByUsername(username: string) {
@@ -13,7 +13,7 @@ class Repository {
           name: item.name,
           url: item.html_url,
           language: item.language,
-          pushed_at: moment(item.pushed_at)
+          pushedAt: moment(item.pushed_at)
         }
         acc.push(repo);
 
@@ -22,6 +22,38 @@ class Repository {
 
     return repositories;
   }
+
+  public prepareForProjectList(repos: Array<RepositoryModel>, size: number) {
+    repos?.sort((a, b) => b.pushedAt.valueOf() - a.pushedAt.valueOf());
+    repos = repos.slice(0, size);
+
+    const listItems: Array<IListItem> = repos?.reduce((acc: Array<IListItem>, item: RepositoryModel) => {
+      acc.push({
+        url: item.url,
+        value: item.name
+      });
+
+      return acc;
+    }, []);
+
+    return listItems;
+  }
+
+  public prepareForLanguagesList(repos: Array<RepositoryModel>) {
+    repos?.sort((a, b) => b.pushedAt.valueOf() - a.pushedAt.valueOf());
+
+    const listItems: Array<IListItem> = repos?.reduce((acc: Array<IListItem>, item: RepositoryModel) => {
+      acc.push({
+        url: item.url,
+        value: item.name
+      });
+
+      return acc;
+    }, []);
+
+    return listItems;
+  }
+
 }
 
 export default new Repository;

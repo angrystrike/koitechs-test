@@ -1,3 +1,7 @@
+import UserCard from '@components/business/user/card';
+import DefaultHeader from '@components/ui/headers/default';
+import List from '@components/ui/list';
+import Repository from '@models/Repository';
 import User from '@models/User';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -12,7 +16,7 @@ export const ResumePage = () => {
       try {
         const fetchedUser = await User.findByUsername(username);
         setUser(fetchedUser);
-        console.log('User:', fetchedUser);
+        console.log('User11:', fetchedUser);
       } catch (error) {
         console.error('Error fetching user:', error);
       }
@@ -42,32 +46,34 @@ export const ResumePage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-4 text-center">User Information</h1>
+        <DefaultHeader 
+          text='User Information'
+          className='mb-4' 
+        />
+
+        <UserCard 
+          user={user}
+          containerClassName='mb-4'  
+        />
 
         <div className="mb-4">
-          <p className="text-lg">Name: {user?.name}</p>
-          <p className="text-lg">Public Repositories: {user?.publicReposCount}</p>
-          <p className="text-lg">Member Since: {user?.registrationDate.format('DD-MM-YYYY')}</p>
-        </div>
-
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-2">Programming Languages</h2>
-          <ul>
-            {userData.languages.map((lang, index) => (
-              <li key={index} className="text-lg">{lang.name}: {lang.percentage}%</li>
-            ))}
-          </ul>
+          <DefaultHeader 
+            text='Programming Languages'
+            className='mb-4' 
+          />
+          <List 
+            items={Repository.prepareForLanguagesList(user?.repos)}
+          />
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold mb-2">Recently Edited Repositories</h2>
-          <ul>
-            {userData.repositories.map((repo, index) => (
-              <li key={index} className="text-lg">
-                <a href={repo.url} className="text-blue-600 hover:underline">{repo.name}</a>
-              </li>
-            ))}
-          </ul>
+          <DefaultHeader 
+            text='Recently Edited Repositories'
+            className='mb-4' 
+          />
+          <List 
+            items={Repository.prepareForProjectList(user?.repos, 5)}
+          />
         </div>
       </div>
     </div>
