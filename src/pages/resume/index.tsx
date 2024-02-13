@@ -1,4 +1,5 @@
 import UserCard from '@components/business/user/card';
+import Layout from '@components/layout';
 import DefaultButton from '@components/ui/buttons/default';
 import DefaultHeader from '@components/ui/headers/default';
 import List from '@components/ui/list';
@@ -88,10 +89,8 @@ export const ResumePage = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        {generate()}
-      </div>
-    </div>
+    <Layout>
+      {generate()}
+    </Layout>
   );
 };
