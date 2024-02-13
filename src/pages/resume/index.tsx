@@ -1,6 +1,26 @@
-import React from 'react';
+import User from '@models/User';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export const ResumePage = () => {
+  const { username } = useParams();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedUser = await User.findByUsername(username);
+        setUser(fetchedUser);
+        console.log('User:', fetchedUser);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    fetchData();
+  }, [username]);
+  
+
   const userData = {
     firstName: 'John',
     lastName: 'Doe',

@@ -3,13 +3,13 @@ import Repository from '@models/Repository';
 import React, { ChangeEvent, useState } from 'react';
 import DefaultButton from '@components/buttons/default';
 import Input from '@components/forms/Input';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-  async function generateResume() {
-    const user = await User.findByUsername(username);
-    console.log('me', user);
-    
-    Repository.test();
+  const navigate = useNavigate();
+  
+  async function navigateToResumePage() {
+    navigate(`/${username}`);
   }
 
   const [username, setUsername] = useState('');
@@ -31,7 +31,7 @@ const HomePage = () => {
           <DefaultButton 
             text="Submit"
             className='px-6 py-2'
-            onClick={generateResume} 
+            onClick={navigateToResumePage} 
           />
         </div>
       </div>
