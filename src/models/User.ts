@@ -1,16 +1,20 @@
 import { getUserData } from "@api/github";
 import moment from "moment-timezone";
 import { UserModel } from "types";
+import Repository from "./Repository";
 
 class User {
   public async findByUsername(username: string) {
-    const response = await getUserData(username);
-    console.log('user', response);
+    const userData = await getUserData(username);
+    const repositoriesData = await Repository.getAllByUsername(username);
+    
     const user: UserModel = {
-      name: response.name,
-      registrationDate: moment(response.created_at),
-      publicReposCount: response.public_repos
+      name: userData.name,
+      registrationDate: moment(userData.created_at),
+      publicReposCount: userData.public_repos,
+      repos: repositoriesData
     }
+    console.log('user', user);
 
     return user;
   }

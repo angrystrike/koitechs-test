@@ -10,3 +10,12 @@ export const getUserData = async (username: string) => {
     console.error('Error fetching github user:', error);
   }
 };
+
+export const getUserRepositories = async (username: string) => {
+  try {
+    const response = await axios.get(`${GITHUB_BASE_URL}/${username}/repos`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching github repositories:', error);
+  }
+};
