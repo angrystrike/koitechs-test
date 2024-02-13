@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { HomePage } from '@pages/home';
+import HomePage from '@pages/home';
 import { ResumePage } from '@pages/resume';
 import { routes } from '@pages/routes';
 import React from 'react';
