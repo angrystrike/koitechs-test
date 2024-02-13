@@ -3,7 +3,9 @@
     "baseUrl": "./src",
     "paths": {
       "@app/*": ["app/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@components/*": ["components/*"],
+      "@models/*": ["models/*"],
     },
     "jsx": "react",
     "esModuleInterop": true,

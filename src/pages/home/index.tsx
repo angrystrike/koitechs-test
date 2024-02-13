@@ -1,6 +1,14 @@
-import React from 'react';
+import User from '@models/User';
+import Repository from '@models/Repository';
+import React, { ChangeEvent } from 'react';
 
 const HomePage = () => {
+  function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
+    console.log('123');
+    User.test();
+    Repository.test();
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
@@ -10,6 +18,7 @@ const HomePage = () => {
             type="text"
             className="px-4 py-2 mr-2 w-64 border rounded-lg outline-none"
             placeholder="Enter GitHub username"
+            onChange={handleInputChange}
           />
           <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Generate</button>
         </div>
