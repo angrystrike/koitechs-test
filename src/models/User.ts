@@ -1,6 +1,8 @@
+import { getUser } from "@api/github";
+
 class User {
-  public test() {
-    console.log('test user enity')
+  public findByUsername(username: string) {
+    return getUser(username);
   }
 }
 

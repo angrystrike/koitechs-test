@@ -6,6 +6,7 @@
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
       "@models/*": ["models/*"],
+      "@api/*": ["api/*"],
     },
     "jsx": "react",
     "esModuleInterop": true,
