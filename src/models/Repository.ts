@@ -23,9 +23,9 @@ class Repository {
     return repositories;
   }
 
-  public prepareForProjectList(repos: Array<RepositoryModel>, size: number) {
+  public prepareForProjectsList(repos: Array<RepositoryModel>, size: number) {
     repos?.sort((a, b) => b.pushedAt.valueOf() - a.pushedAt.valueOf());
-    repos = repos.slice(0, size);
+    repos = repos?.slice(0, size);
 
     const listItems: Array<IListItem> = repos?.reduce((acc: Array<IListItem>, item: RepositoryModel) => {
       acc.push({
@@ -40,18 +40,22 @@ class Repository {
   }
 
   public prepareForLanguagesList(repos: Array<RepositoryModel>) {
-    repos?.sort((a, b) => b.pushedAt.valueOf() - a.pushedAt.valueOf());
+    const languageCounts: { [key: string]: number } = {};
+    const totalRepos = repos.length;
 
-    const listItems: Array<IListItem> = repos?.reduce((acc: Array<IListItem>, item: RepositoryModel) => {
-      acc.push({
-        url: item.url,
-        value: item.name
-      });
+    // Get object with key: language_name and value: count of project with this lang
+    repos.forEach(repo => {
+      const lang = repo.language || 'Unknown';
+      languageCounts[lang] = (languageCounts[lang] || 0) + 1;
+    });
 
-      return acc;
-    }, []);
+    // Calculate percentage using total count of repos
+    const languageOverview = Object.entries(languageCounts).map(([lang, count]) => ({
+      label: lang,
+      value: `${((count / totalRepos) * 100).toFixed(2)}%`
+    })).sort((a, b) => parseFloat(b.value) - parseFloat(a.value));
 
-    return listItems;
+    return languageOverview;
   }
 
 }

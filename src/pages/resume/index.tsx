@@ -25,24 +25,6 @@ export const ResumePage = () => {
     fetchData();
   }, [username]);
 
-  const userData = {
-    firstName: 'John',
-    lastName: 'Doe',
-    publicRepositories: 20,
-    memberSince: '2020-01-01',
-    languages: [
-      { name: 'HTML', percentage: 15 },
-      { name: 'JavaScript', percentage: 45 },
-      { name: 'CSS', percentage: 35 },
-      { name: 'Bash', percentage: 5 },
-    ],
-    repositories: [
-      { name: 'Project A', url: 'https://github.com/user/project-a' },
-      { name: 'Project B', url: 'https://github.com/user/project-b' },
-      { name: 'Project C', url: 'https://github.com/user/project-c' },
-    ],
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
@@ -72,7 +54,7 @@ export const ResumePage = () => {
             className='mb-4' 
           />
           <List 
-            items={Repository.prepareForProjectList(user?.repos, 5)}
+            items={Repository.prepareForProjectsList(user?.repos, 5)}
           />
         </div>
       </div>
